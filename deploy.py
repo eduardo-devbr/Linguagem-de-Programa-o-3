@@ -2,6 +2,17 @@ import os
 import subprocess
 import getpass
 
+"""
+comando antes de dar deploy:
+
+git init
+git branch -M main
+git remote add origin https://github.com/SEU_USUARIO/NOME_DO_REPO.git
+
+
+"""
+
+
 def run_command(command):
     """Executa um comando no terminal e exibe a saída."""
     process = subprocess.Popen(
@@ -64,6 +75,14 @@ def main():
         print("\n✅ Sucesso! Código atualizado no GitHub.")
     else:
         print("\n❌ Falha ao enviar para o GitHub. Verifique se criou um novo Token válido.")
+
+# 7. (Opcional) Criar e enviar Tag da aula
+    criar_tag = input("\n🏷️ Deseja criar uma tag para esta aula? (ex: aula-03 ou N para pular): ").strip()
+    if criar_tag and criar_tag.lower() != 'n':
+        run_command(f'git tag {criar_tag}')
+        run_command(f'git push {auth_url} {criar_tag}')
+        print(f"✅ Tag '{criar_tag}' criada com sucesso!")
+
 
 if __name__ == "__main__":
     main()
